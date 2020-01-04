@@ -18,7 +18,8 @@ const IndexPage: NextPage = () => (
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(calc(1200px / 4 - 24px), 1fr))" gridGap="md">
           <Button>button</Button>
           <Button variant="primary">another button</Button>
-          <Button variant="destructive">yes, a button</Button>
+          <Button variant="success">yet another button</Button>
+          <Button variant="destructive">yes, another button</Button>
         </Box>
       </Stack>
     </Content>

@@ -5,7 +5,7 @@ import { transparentize } from 'polished'
 import { variant } from 'styled-system'
 import { Box } from '../Box'
 
-export type ButtonVariants = 'default' | 'primary' | 'destructive'
+export type ButtonVariants = 'default' | 'primary' | 'success' | 'destructive'
 
 export interface ButtonProps {
   block?: boolean
@@ -62,6 +62,14 @@ const Button = styled(BoxAsButton)<ButtonProps>`
           }
         },
         primary: {
+          borderColor: 'primary02',
+          backgroundColor: transparentize(0.9, themeGet('colors.primary02')(props)),
+          color: 'foreground',
+          '&:hover': {
+            backgroundColor: transparentize(0.8, themeGet('colors.primary02')(props))
+          }
+        },
+        success: {
           borderColor: 'success02',
           backgroundColor: transparentize(0.9, themeGet('colors.success02')(props)),
           color: 'foreground',
