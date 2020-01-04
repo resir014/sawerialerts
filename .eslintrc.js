@@ -19,7 +19,23 @@ module.exports = {
       rules: {
         'no-undef': 'off',
         'no-unused-vars': 'off',
-        'spaced-comment': ['error', 'always', { markers: ['/'] }],
+        // require or disallow a space immediately following the // or /* in a comment
+        // https://eslint.org/docs/rules/spaced-comment
+        'spaced-comment': [
+          'error',
+          'always',
+          {
+            line: {
+              exceptions: ['-', '+'],
+              markers: ['=', '!', '#region', '#endregion', '/'] // space here to support sprockets directives and typescript reference comments
+            },
+            block: {
+              exceptions: ['-', '+'],
+              markers: ['=', '!', '#region', '#endregion', ':', '::'], // space here to support sprockets directives and flow comment types
+              balanced: true
+            }
+          }
+        ],
         'import/no-unresolved': 'off',
         'react/jsx-props-no-spreading': 'off',
         '@typescript-eslint/camelcase': 'off',

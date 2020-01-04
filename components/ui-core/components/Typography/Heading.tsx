@@ -14,13 +14,16 @@ import shouldForwardProp from '@styled-system/should-forward-prop'
 import { TextScale } from '../../Theme'
 
 export interface HeadingProps extends LayoutProps, SpaceProps, ColorProps, SystemTypographyProps {
+  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>
+  color?: string
   variant?: TextScale
 }
 
-const Heading = styled<'h2', HeadingProps>('h2', { shouldForwardProp })(variant({ scale: 'textScale' }), layout, space, color, typography)
+const Heading = styled('h2', { shouldForwardProp })<HeadingProps>(variant({ scale: 'textScale' }), layout, space, color, typography)
 
 Heading.defaultProps = {
-  variant: 800
+  variant: 800,
+  fontWeight: 600
 }
 
 Heading.displayName = 'Heading'

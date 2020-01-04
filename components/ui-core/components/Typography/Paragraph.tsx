@@ -14,16 +14,12 @@ import shouldForwardProp from '@styled-system/should-forward-prop'
 import { ParagraphScale } from '../../Theme'
 
 export interface ParagraphProps extends LayoutProps, SpaceProps, ColorProps, SystemTypographyProps {
+  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>
+  color?: string
   variant?: ParagraphScale
 }
 
-const Paragraph = styled<'p', ParagraphProps>('p', { shouldForwardProp })(
-  variant({ scale: 'paragraphScale' }),
-  layout,
-  space,
-  color,
-  typography
-)
+const Paragraph = styled('p', { shouldForwardProp })<ParagraphProps>(variant({ scale: 'paragraphScale' }), layout, space, color, typography)
 
 Paragraph.defaultProps = {
   variant: 400

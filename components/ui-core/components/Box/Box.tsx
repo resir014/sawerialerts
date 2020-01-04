@@ -32,9 +32,8 @@ export interface BoxProps
     ColorProps,
     TypographyProps,
     BorderProps {
-  /** Additional CSS classes to add to the component. */
+  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>
   className?: string
-  /** Additional CSS properties to add to the component. */
   style?: React.CSSProperties
 }
 
