@@ -1,32 +1,28 @@
-# nextjs-typescript-quickstart
+# sawerialerts
 
-> Get started on Next.js with TypeScript in seconds.
+> Saweria Alerts customizer.
 
-This is an example setup of Next.js building on top of the [official TypeScript example](https://github.com/zeit/next.js/tree/master/examples/with-typescript). It adds the following:
+## User Stories
 
-- Support for TS' `baseUrl` with `babel-plugin-module-resolver`
-- Simple styling structure with `styled-jsx`
-- Basic TSLint and Prettier setup
-- TypeScript typechecking as part of `test` script (ready to plug into any CI)
+sawerialerts is a work-in-progress. This section outlines the user stories that will be worked on.
 
-## How to use
+- [ ] As a streamer, I can edit the HTML and CSS of my alerts overlay.
+- [ ] As a streamer, I can put my edited alerts overlay in my streaming software's web source.
+- [ ] As a streamer, I can resume editing my current alerts overlay when I open the editor.
+- [ ] As a streamer, I can edit the HTML and CSS of my leaderboard overlay.
+- [ ] As a streamer, I can put my edited leaderboard overlay in my streaming software's web source.
 
-### Using now
+## Developing Locally
 
-Click the button below to deploy instantly with [now](https://zeit.co/now).
+Install dependencies with `yarn`.
 
-[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/resir014/nextjs-typescript-quickstart)
+```
+$ yarn
+```
 
-### Download manually
+To run a local server, run the following command. Your app will live on `localhost:3000`.
 
-[Download the example](https://github.com/resir014/nextjs-typescript-quickstart/archive/master.zip) and then unzip it.
-
-Install it and run:
-
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
+```
+$ yarn dev
+> Ready on http://localhost:3000
 ```

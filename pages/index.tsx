@@ -1,45 +1,8 @@
 import * as React from 'react'
 import { NextPage } from 'next'
-import convert from 'htmr'
 
 import { Content, Page } from 'components/layout'
 import { Heading, Paragraph, Button, Box, Stack, Text, UnorderedList, ListItem } from 'components/ui-core'
-
-//#region wildcard values to JSX expressions
-
-// Example for converting wildcard values (e.g. `{}`) to JSX expressions in `htmr`
-// (Thanks to @pveyes for this example! https://gist.github.com/pveyes/0b340119495d48099431869e6ecc1ffa)
-
-// JSX expression
-const TEMPLATE_REGEX = /{(\w+)}/
-
-const valueMap: { [key: string]: any } = {
-  test: 'hello'
-}
-
-const html = '<p>{test}</p>'
-
-const result = convert(html, {
-  transform: {
-    p: Paragraph,
-    _: (node, props, children) => {
-      if (typeof props === 'undefined' && typeof node === 'string') {
-        // text node
-        if (TEMPLATE_REGEX.test(node)) {
-          const key = node.replace(TEMPLATE_REGEX, '$1')
-          return valueMap[key]
-        }
-
-        return node
-      }
-
-      // fallback
-      return React.createElement(node, props, children)
-    }
-  }
-})
-
-//#endregion
 
 const IndexPage: NextPage = () => (
   <Page title="Alert Customizer | sawerialerts">
@@ -92,7 +55,6 @@ const IndexPage: NextPage = () => (
             </Heading>
           </Box>
         </Box>
-        {result}
         <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(calc(1200px / 4 - 24px), 1fr))" gridGap="md">
           <Button>button</Button>
           <Button variant="primary">another button</Button>

@@ -33,8 +33,7 @@ const global = css.global`
 
   html,
   body {
-    color: ${colors.foreground};
-    background-color: ${colors.background};
+    background-color: transparent;
   }
 
   h1,
