@@ -21,7 +21,11 @@ const initialValues: FormValues = {
   css: defaultStyles
 }
 
-const IndexPage: NextPage = () => {
+interface IndexPageProps {
+  serverUrl?: string
+}
+
+const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
   const [finalUrl, setFinalUrl] = React.useState<string | undefined>(undefined)
   const [copySuccess, setCopySuccess] = React.useState(false)
 
@@ -29,8 +33,8 @@ const IndexPage: NextPage = () => {
     helpers.setSubmitting(true)
 
     try {
-      const url = base64url.encode(JSON.stringify(values))
-      setFinalUrl(`https://sawerialerts.now.sh/overlay/alerts?config=${url}`)
+      const encodedurl = base64url.encode(JSON.stringify(values))
+      setFinalUrl(`${serverUrl}/overlay/alerts?config=${encodedurl}`)
     } catch (err) {
       console.error(err)
     } finally {
@@ -143,6 +147,22 @@ const IndexPage: NextPage = () => {
       </Content>
     </Page>
   )
+}
+
+IndexPage.getInitialProps = async ctx => {
+  const { req } = ctx
+  const host = req ? req.headers.host : window.location.hostname
+  let protocol = 'https:'
+
+  if (host && host.indexOf('localhost') > -1) {
+    protocol = 'http:'
+  }
+
+  if (req) {
+    return { serverUrl: `${protocol}//${host}` }
+  }
+
+  return {}
 }
 
 export default IndexPage

@@ -42,6 +42,7 @@ const SaweriaWidgetBox: React.FC<SaweriaWidgetBoxProps> = ({ config }) => {
   const [listening, setListening] = React.useState(false)
   const [messages, setMessages] = React.useState<{ [key: string]: any }>(initMessage)
   const saweriaAlertURL = config ? `https://api.saweria.co/stream?channel=donation.${config.streamKey}` : undefined
+  let timeout: NodeJS.Timeout | undefined
 
   const eventSource = saweriaAlertURL ? new EventSource(saweriaAlertURL) : undefined
 
@@ -52,7 +53,10 @@ const SaweriaWidgetBox: React.FC<SaweriaWidgetBoxProps> = ({ config }) => {
 
     setIsShown(true)
 
-    setTimeout(() => {
+    if (timeout) {
+      clearTimeout(timeout)
+    }
+    timeout = setTimeout(() => {
       setIsShown(false)
     }, 5000)
   }
