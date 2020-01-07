@@ -19,10 +19,6 @@ html {
   box-sizing: inherit;
 }
 
-.widget-AlertBox {
-  position: relative;
-}
-
 .ck-alert-wrapper {
   display: flex;
   flex-direction: column;
@@ -120,17 +116,7 @@ html {
   vertical-align: middle;
   height: 1em;
 }
-#alert-message > span > span {
-  display: inline-block;
-}
-#alert-text {
-  z-index: 6;
-  position: relative;
-}
-#alert-text-wrap {
-  z-index: 6;
-  position: relative;
-}`
+`
 
 export const defaultHtml = `<div class="ck-alert-wrapper">
   <div class="ck-alert-wrapper__inner">
@@ -146,9 +132,9 @@ export const defaultHtml = `<div class="ck-alert-wrapper">
       <div class="ck-alert-text">
         <!-- alert text -->
         <div id="alert-text" class="ck-alert-text__inner">
-          <!-- alert message -->
-          <!-- messageTemplate will be replaced with your message template -->
-          <!-- for example : {name} is now following! or {name} donated {amount} -->
+          <!-- stuff in {brackets} will be replaced with your message -->
+          <!-- for example: {name} donated {amount}! -->
+          <!-- NOTE: you might have to wrap these inside a tag (e.g. <span>) -->
           <div id="alert-message"><span>{donatee}</span> donated <span>{amount}</span>!</div>
           <div id="alert-user-message">{message}</div>
         </div>
