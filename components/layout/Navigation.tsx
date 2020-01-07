@@ -28,7 +28,7 @@ const Anchor = styled(Text.withComponent('a'))`
 
 const Navigation: React.SFC = () => {
   return (
-    <Header display="grid" gridTemplateColumns={`1fr 1fr minmax(auto, ${themeProps.breakpoints[4]}) 1fr 1fr`} py="sm" px="lg">
+    <Header display="grid" gridTemplateColumns={`1fr 1fr minmax(auto, ${themeProps.widths.lg}px) 1fr 1fr`} py="sm" px="lg">
       <Div display="flex" flexDirection="row" alignItems="center" gridColumn="3/4">
         <Div mr="xl">
           <Text fontWeight={600}>sawerialerts</Text>

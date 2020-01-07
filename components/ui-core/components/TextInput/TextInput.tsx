@@ -7,7 +7,10 @@ import { themeProps } from 'components/ui-core/Theme'
 export interface TextInputProps
   extends Omit<LayoutProps, 'size'>,
     SpaceProps,
-    Pick<React.InputHTMLAttributes<HTMLInputElement>, 'name' | 'type' | 'value' | 'placeholder' | 'disabled' | 'onChange'> {
+    Pick<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      'name' | 'type' | 'value' | 'placeholder' | 'disabled' | 'autoComplete' | 'onChange'
+    > {
   className?: string
   style?: React.CSSProperties
   fullWidth?: boolean

@@ -74,7 +74,6 @@ const global = css.global`
   }
 
   a {
-    text-decoration: none;
     color: inherit;
   }
 

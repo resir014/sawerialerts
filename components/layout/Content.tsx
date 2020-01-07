@@ -1,17 +1,19 @@
 import styled from '@emotion/styled'
 import { themeGet } from '@styled-system/theme-get'
-import { themeProps } from 'components/ui-core'
 import * as React from 'react'
+import { themeProps } from '../ui-core'
 
 const Main = styled('main')`
-  display: grid;
-  grid-template-columns: 1fr 1fr minmax(auto, ${themeGet('breakpoints.4', themeProps.breakpoints[4])}) 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   flex: 1;
   padding: 1.5rem;
 `
 
 const Inner = styled('div')`
-  grid-column: 3/4;
+  width: 100%;
+  max-width: ${themeGet('widths.lg', themeProps.widths.lg)}px;
+  margin: 0 auto;
 `
 
 const Content: React.FC = ({ children }) => {

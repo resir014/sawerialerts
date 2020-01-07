@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { ThemeProvider } from 'emotion-theming'
-import { colors, space, fonts, breakpoints, textScale, paragraphScale, mediaQueries } from './utils/variables'
+import { colors, space, fonts, breakpoints, widths, textScale, paragraphScale, mediaQueries } from './utils/variables'
 
 export const themeProps = {
   colors,
   space,
   fonts,
   textScale,
+  widths,
   paragraphScale,
   mediaQueries,
   breakpoints

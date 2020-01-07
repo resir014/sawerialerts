@@ -12,7 +12,8 @@ const AboutPage: NextPage = () => (
       <Stack spacing="md">
         <H1 variant={900}>About sawerialerts.</H1>
         <Paragraph>
-          <strong>sawerialerts</strong> is an advanced alerts customizer for Saweria.
+          <strong>sawerialerts</strong> is an advanced alerts customizer for Saweria. It was built by{' '}
+          <a href="https://twitter.com/resir014">@resir014</a>.
         </Paragraph>
       </Stack>
     </Content>
