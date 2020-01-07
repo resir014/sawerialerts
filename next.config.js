@@ -2,9 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 module.exports = {
   target: process.env.BUILD_TARGET || 'server',
-  env: {
-    DUMMY_STREAM_KEY: 'f074428e3eeddf49868ffc71ca7a36a9'
-  },
   webpack: (config, { defaultLoaders }) => {
     config.module.rules.push({
       test: /\.css$/,
