@@ -21,7 +21,11 @@ const initialValues: FormValues = {
   css: defaultStyles
 }
 
-const IndexPage: NextPage = () => {
+interface IndexPageProps {
+  referer?: string
+}
+
+const IndexPage: NextPage<IndexPageProps> = ({ referer }) => {
   const [finalUrl, setFinalUrl] = React.useState<string | undefined>(undefined)
   const [copySuccess, setCopySuccess] = React.useState(false)
 
@@ -29,8 +33,8 @@ const IndexPage: NextPage = () => {
     helpers.setSubmitting(true)
 
     try {
-      const url = base64url.encode(JSON.stringify(values))
-      setFinalUrl(`https://sawerialerts.now.sh/overlay/alerts?config=${url}`)
+      const encodedurl = base64url.encode(JSON.stringify(values))
+      setFinalUrl(`${referer}overlay/alerts?config=${encodedurl}`)
     } catch (err) {
       console.error(err)
     } finally {
@@ -143,6 +147,16 @@ const IndexPage: NextPage = () => {
       </Content>
     </Page>
   )
+}
+
+IndexPage.getInitialProps = async ctx => {
+  const { req } = ctx
+
+  if (req) {
+    return { referer: req.headers.referer }
+  }
+
+  return {}
 }
 
 export default IndexPage
