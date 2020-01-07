@@ -22,10 +22,10 @@ const initialValues: FormValues = {
 }
 
 interface IndexPageProps {
-  referer?: string
+  serverUrl?: string
 }
 
-const IndexPage: NextPage<IndexPageProps> = ({ referer }) => {
+const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
   const [finalUrl, setFinalUrl] = React.useState<string | undefined>(undefined)
   const [copySuccess, setCopySuccess] = React.useState(false)
 
@@ -34,7 +34,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ referer }) => {
 
     try {
       const encodedurl = base64url.encode(JSON.stringify(values))
-      setFinalUrl(`${referer}overlay/alerts?config=${encodedurl}`)
+      setFinalUrl(`${serverUrl}overlay/alerts?config=${encodedurl}`)
     } catch (err) {
       console.error(err)
     } finally {
@@ -153,7 +153,7 @@ IndexPage.getInitialProps = async ctx => {
   const { req } = ctx
 
   if (req) {
-    return { referer: req.headers.referer }
+    return { serverUrl: `${(req as any).protocol}://${(req as any).get('Host')}` }
   }
 
   return {}
