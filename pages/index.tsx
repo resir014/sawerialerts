@@ -34,7 +34,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
 
     try {
       const encodedurl = base64url.encode(JSON.stringify(values))
-      setFinalUrl(`${serverUrl}overlay/alerts?config=${encodedurl}`)
+      setFinalUrl(`${serverUrl}/overlay/alerts?config=${encodedurl}`)
     } catch (err) {
       console.error(err)
     } finally {
