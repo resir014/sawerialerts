@@ -10,7 +10,10 @@ interface PageProps {
 const Page: React.SFC<PageProps> = ({ children, title }) => (
   <LayoutRoot>
     <Head>
-      <title>{title || 'sawerialerts'}</title>
+      <title>{title === 'Home' ? 'sawerialerts' : `${title} | sawerialerts`}</title>
+      <meta name="description" content="Saweria Alerts Customizer" />,
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content="Saweria Alerts Customizer" />,
     </Head>
     <Navigation />
     {children}

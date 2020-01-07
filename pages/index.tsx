@@ -53,7 +53,7 @@ const IndexPage: NextPage = () => {
   }
 
   return (
-    <Page title="Alert Customizer | sawerialerts">
+    <Page title="Home">
       <Content>
         <Formik initialValues={initialValues} onSubmit={handleSubmit}>
           {({ isSubmitting }) => {
