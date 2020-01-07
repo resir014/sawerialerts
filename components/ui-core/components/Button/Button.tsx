@@ -41,6 +41,7 @@ const globals = (props: ButtonProps) => ({
   display: props.block ? 'block' : 'inline-block',
   px: 'md',
   height: 36,
+  width: props.block ? '100%' : undefined,
   minWidth: 200,
   fontSize: themeGet('textScale.200.fontSize', '14px')(props),
   lineHeight: themeGet('textScale.400.lineHeight', '20px')(props)

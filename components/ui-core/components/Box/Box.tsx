@@ -15,8 +15,6 @@ import {
   BackgroundProps,
   color,
   ColorProps,
-  typography,
-  TypographyProps,
   border,
   BorderProps
 } from 'styled-system'
@@ -30,7 +28,6 @@ export interface BoxProps
     SpaceProps,
     BackgroundProps,
     ColorProps,
-    TypographyProps,
     BorderProps {
   as?: keyof JSX.IntrinsicElements | React.ComponentType<any>
   className?: string
@@ -49,7 +46,6 @@ const Box = styled<'div', BoxProps>('div', { shouldForwardProp })`
   ${space}
   ${background}
   ${color}
-  ${typography}
   ${border}
 `
 
