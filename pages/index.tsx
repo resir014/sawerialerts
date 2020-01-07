@@ -151,9 +151,15 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
 
 IndexPage.getInitialProps = async ctx => {
   const { req } = ctx
+  const host = req ? req.headers.host : window.location.hostname
+  let protocol = 'https:'
+
+  if (host && host.indexOf('localhost') > -1) {
+    protocol = 'http:'
+  }
 
   if (req) {
-    return { serverUrl: `${(req as any).protocol}://${(req as any).get('Host')}` }
+    return { serverUrl: `${protocol}//${host}` }
   }
 
   return {}
