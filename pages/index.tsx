@@ -73,7 +73,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                     <TextField fullWidth autoComplete="off" name="streamKey" label="Stream Key" placeholder="Enter your stream key here" />
                     <Paragraph>
                       The stream key is located in your default Saweria donation alert URL, right after the{' '}
-                      <Text as="code">?streamKey=</Text> section. Copy and paste that into the text box below.
+                      <Text as="code">?streamKey=</Text> section. Copy and paste that into the text box above.
                     </Paragraph>
                     <Box as="pre" display="block" overflowX="auto" p="sm" backgroundColor="accents01" width="100%">
                       <Text display="inline" as="code">
