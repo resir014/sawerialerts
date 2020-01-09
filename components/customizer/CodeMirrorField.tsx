@@ -6,8 +6,11 @@ import { UnControlled as CodeMirror } from 'react-codemirror2'
 import codemirror from 'codemirror/lib/codemirror.css'
 import materialTheme from 'codemirror/theme/seti.css'
 
+import 'codemirror/mode/xml/xml'
+import 'codemirror/mode/css/css'
+
 export interface CodeMirrorFieldProps extends TextInputProps {
-  mode: 'html' | 'css'
+  mode: 'xml' | 'css'
   label: string
 }
 

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 import * as yup from 'yup'
 import { Formik, Form, FormikHelpers } from 'formik'
 import base64url from 'base64-url'
@@ -9,7 +10,7 @@ import { useLocalStorage } from 'react-use'
 
 import { Content, Page } from 'components/layout'
 import { Heading, Paragraph, Button, Box, Stack, Text, UnorderedList, ListItem, TextInput } from 'components/ui-core'
-import { TextField, CodeMirrorField } from 'components/customizer'
+import { TextField } from 'components/customizer'
 import { defaultHtml, defaultStyles } from 'utils/defaults'
 import { OverlayConfig } from 'utils/types'
 
@@ -26,6 +27,8 @@ interface IndexPageProps {
   serverUrl?: string
 }
 
+const CodeMirrorField = dynamic(() => import('components/customizer/CodeMirrorField'), { ssr: false })
+
 const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
   const router = useRouter()
   const [storage, setStorage] = useLocalStorage('config', initialValues)
@@ -39,6 +42,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
       const encodedurl = base64url.encode(JSON.stringify(values))
       setFinalUrl(`${serverUrl}/overlay/alerts?config=${encodedurl}`)
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err)
     } finally {
       setStorage(values)
@@ -160,7 +164,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                           <CodeMirrorField mode="css" name="css" label="CSS editor" />
                         </Box>
                         <Box>
-                          <CodeMirrorField mode="html" name="html" label="HTML editor" />
+                          <CodeMirrorField mode="xml" name="html" label="HTML editor" />
                         </Box>
                       </Stack>
                     </Box>
