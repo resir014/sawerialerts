@@ -44,7 +44,11 @@ const globals = (props: ButtonProps) => ({
   width: props.block ? '100%' : undefined,
   minWidth: 200,
   fontSize: themeGet('textScale.200.fontSize', '14px')(props),
-  lineHeight: themeGet('textScale.400.lineHeight', '20px')(props)
+  lineHeight: themeGet('textScale.400.lineHeight', '20px')(props),
+  '&:disabled': {
+    opacity: 0.5,
+    cursor: 'unset'
+  }
 })
 
 const BoxAsButton = Box.withComponent('button')
@@ -58,7 +62,7 @@ const Button = styled(BoxAsButton)<ButtonProps>`
         default: {
           borderColor: 'accents02',
           color: 'foreground',
-          '&:hover': {
+          '&:hover:not(:disabled)': {
             backgroundColor: transparentize(0.8, themeGet('colors.accents02')(props))
           }
         },
@@ -66,7 +70,7 @@ const Button = styled(BoxAsButton)<ButtonProps>`
           borderColor: 'primary02',
           backgroundColor: transparentize(0.9, themeGet('colors.primary02')(props)),
           color: 'foreground',
-          '&:hover': {
+          '&:hover:not(:disabled)': {
             backgroundColor: transparentize(0.8, themeGet('colors.primary02')(props))
           }
         },
@@ -74,7 +78,7 @@ const Button = styled(BoxAsButton)<ButtonProps>`
           borderColor: 'success02',
           backgroundColor: transparentize(0.9, themeGet('colors.success02')(props)),
           color: 'foreground',
-          '&:hover': {
+          '&:hover:not(:disabled)': {
             backgroundColor: transparentize(0.8, themeGet('colors.success02')(props))
           }
         },
@@ -82,7 +86,7 @@ const Button = styled(BoxAsButton)<ButtonProps>`
           borderColor: 'error02',
           backgroundColor: transparentize(0.9, themeGet('colors.error02')(props)),
           color: 'foreground',
-          '&:hover': {
+          '&:hover:not(:disabled)': {
             backgroundColor: transparentize(0.8, themeGet('colors.error02')(props))
           }
         }

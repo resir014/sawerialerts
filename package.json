@@ -41,7 +41,8 @@
     "react-dom": "^16.12.0",
     "react-transition-group": "^4.3.0",
     "react-use": "^13.14.3",
-    "styled-system": "^5.1.4"
+    "styled-system": "^5.1.4",
+    "yup": "^0.28.0"
   },
   "devDependencies": {
     "@types/base64-url": "^2.2.0",
@@ -52,6 +53,7 @@
     "@types/styled-jsx": "^2.2.8",
     "@types/styled-system": "^5.1.4",
     "@types/styled-system__theme-get": "^5.0.0",
+    "@types/yup": "^0.26.27",
     "cross-env": "^6.0.3",
     "eslint": "6.8.0",
     "eslint-config-blvd": "^1.0.1",

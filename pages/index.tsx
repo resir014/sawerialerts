@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import * as yup from 'yup'
 import { Formik, Form, FormikHelpers } from 'formik'
 import base64url from 'base64-url'
 import { toClipboard } from 'copee'
@@ -64,11 +65,19 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
     router.reload()
   }
 
+  const validationSchema = yup.object().shape({
+    streamKey: yup.string().required('Please enter a stream key.'),
+    alertTemplate: yup.string().required('Please enter a template.'),
+    image: yup.string().url('Not a valid image URL.'),
+    html: yup.string(),
+    css: yup.string()
+  })
+
   return (
     <Page title="Home">
       <Content>
-        <Formik initialValues={storage || initialValues} onSubmit={handleSubmit}>
-          {({ isSubmitting }) => {
+        <Formik initialValues={storage || initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+          {({ isSubmitting, isValid }) => {
             return (
               <Form>
                 <Heading as="h1" variant={900}>
@@ -78,16 +87,24 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                 <Box mt="xxl" borderTopWidth="1px" borderTopStyle="solid" borderTopColor="accents03" pt="xl">
                   <Stack spacing="lg">
                     <Heading>Step 1: Your Details</Heading>
-                    <TextField fullWidth autoComplete="off" name="streamKey" label="Stream Key" placeholder="Enter your stream key here" />
-                    <Paragraph>
-                      The stream key is located in your default Saweria donation alert URL, right after the{' '}
-                      <Text as="code">?streamKey=</Text> section. Copy and paste that into the text box above.
-                    </Paragraph>
-                    <Box as="pre" display="block" overflowX="auto" p="sm" backgroundColor="accents01" width="100%">
-                      <Text display="inline" as="code">
-                        https://saweria.co/donation-alert?streamKey=<Text color="error02">f0744...7a36a9</Text>&backgroundColor=...
-                      </Text>
-                    </Box>
+                    <Stack spacing="md">
+                      <TextField
+                        fullWidth
+                        autoComplete="off"
+                        name="streamKey"
+                        label="Stream Key"
+                        placeholder="Enter your stream key here"
+                      />
+                      <Paragraph>
+                        The stream key is located in your default Saweria donation alert URL, right after the{' '}
+                        <Text as="code">?streamKey=</Text> section. Copy and paste that into the text box above.
+                      </Paragraph>
+                      <Box as="pre" display="block" overflowX="auto" p="sm" backgroundColor="accents01" width="100%">
+                        <Text display="inline" as="code">
+                          https://saweria.co/donation-alert?streamKey=<Text color="error02">f0744...7a36a9</Text>&backgroundColor=...
+                        </Text>
+                      </Box>
+                    </Stack>
                   </Stack>
                 </Box>
                 <Box mt="xxl" borderTopWidth="1px" borderTopStyle="solid" borderTopColor="accents03" pt="xl">
@@ -154,10 +171,10 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                     <Heading>Step 3: Get Your URL</Heading>
                     <Box>
                       <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(calc(1200px / 4 - 24px), 1fr))" gridGap="md">
-                        <Button block variant="primary" type="submit" disabled={isSubmitting}>
+                        <Button block variant="primary" type="submit" disabled={!isValid || isSubmitting}>
                           {isSubmitting ? 'Saving...' : 'Save'}
                         </Button>
-                        <Button block variant="destructive" type="button" disabled={isSubmitting} onClick={handleReset}>
+                        <Button block variant="destructive" type="button" onClick={handleReset}>
                           Reset to Defaults
                         </Button>
                       </Box>
