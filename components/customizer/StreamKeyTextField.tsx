@@ -6,18 +6,18 @@ export interface StreamKeyTextFieldProps extends TextInputProps {
   label?: string
 }
 
-const TextField: React.FC<StreamKeyTextFieldProps> = ({ label, name = '', fullWidth, ...props }) => {
-  const [field, meta] = useField({ name, ...props })
+const TextField: React.FC<StreamKeyTextFieldProps> = ({ label, name = '', fullWidth, autoComplete, disabled, placeholder, ...props }) => {
+  const [field, meta] = useField({ name, autoComplete, disabled, placeholder })
 
   return (
     <Box {...props}>
       <Stack as="label" htmlFor={name} spacing="xs">
         {label && (
-          <Text display="block" variant={200} mb="xs">
+          <Text display="block" variant={200}>
             {label}
           </Text>
         )}
-        <TextInput name={name} {...field} fullWidth={fullWidth} />
+        <TextInput name={name} {...field} placeholder={placeholder} autoComplete={autoComplete} fullWidth={fullWidth} />
         {meta.touched && meta.error ? (
           <Text display="block" variant={200} color="error02">
             {meta.error}

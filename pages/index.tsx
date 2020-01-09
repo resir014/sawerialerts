@@ -141,7 +141,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                       autoComplete="off"
                       name="image"
                       label="Image Source"
-                      placeholder="e.g. https://i.imgur.com/[...]"
+                      placeholder="e.g. https://i.imgur.com/6YToyEF.png"
                     />
                     <Stack spacing="md">
                       <Paragraph>You can use these variables in your alert template.</Paragraph>

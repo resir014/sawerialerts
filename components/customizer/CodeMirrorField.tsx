@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useField } from 'formik'
-import { Text, TextInputProps } from 'components/ui-core'
+import { Text, TextInputProps, Box, Stack } from 'components/ui-core'
 import { UnControlled as CodeMirror } from 'react-codemirror2'
 
 import codemirror from 'codemirror/lib/codemirror.css'
@@ -11,13 +11,13 @@ export interface CodeMirrorFieldProps extends TextInputProps {
   label: string
 }
 
-const CodeMirrorField: React.FC<CodeMirrorFieldProps> = ({ label, name = '', mode, ...props }) => {
-  const [field, meta, helpers] = useField({ name, ...props })
+const CodeMirrorField: React.FC<CodeMirrorFieldProps> = ({ label, name = '', mode, autoComplete, disabled, placeholder, ...props }) => {
+  const [field, meta, helpers] = useField({ name, autoComplete, disabled, placeholder })
 
   return (
-    <>
-      <label htmlFor={name}>
-        <Text display="block" variant={200} mb="xs">
+    <Box {...props}>
+      <Stack as="label" htmlFor={name} spacing="xs">
+        <Text display="block" variant={200}>
           {label}
         </Text>
         <CodeMirror
@@ -32,7 +32,7 @@ const CodeMirrorField: React.FC<CodeMirrorFieldProps> = ({ label, name = '', mod
             helpers.setValue(value)
           }}
         />
-      </label>
+      </Stack>
       {meta.touched && meta.error ? (
         <Text display="block" color="error2">
           {meta.error}
@@ -44,7 +44,7 @@ const CodeMirrorField: React.FC<CodeMirrorFieldProps> = ({ label, name = '', mod
       <style jsx global>
         {materialTheme}
       </style>
-    </>
+    </Box>
   )
 }
 
