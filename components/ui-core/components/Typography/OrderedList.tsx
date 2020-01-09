@@ -11,11 +11,11 @@ const OLRoot = styled(Text)`
   display: block;
   list-style-type: decimal;
 
-  &:first-child {
+  &:first-of-type {
     margin-top: 0;
   }
 
-  &:last-child {
+  &:last-of-type {
     margin-bottom: 0;
   }
 `

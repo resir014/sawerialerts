@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { Formik, Form, FormikHelpers } from 'formik'
 import base64url from 'base64-url'
 import { toClipboard } from 'copee'
+import { useLocalStorage } from 'react-use'
 
 import { Content, Page } from 'components/layout'
 import { Heading, Paragraph, Button, Box, Stack, Text, UnorderedList, ListItem, TextInput } from 'components/ui-core'
@@ -24,6 +26,8 @@ interface IndexPageProps {
 }
 
 const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
+  const router = useRouter()
+  const [storage, setStorage] = useLocalStorage('config', initialValues)
   const [finalUrl, setFinalUrl] = React.useState<string | undefined>(undefined)
   const [copySuccess, setCopySuccess] = React.useState(false)
 
@@ -36,6 +40,7 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
     } catch (err) {
       console.error(err)
     } finally {
+      setStorage(values)
       helpers.setSubmitting(false)
     }
   }
@@ -54,10 +59,15 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
     }
   }
 
+  const handleReset = () => {
+    setStorage(initialValues)
+    router.reload()
+  }
+
   return (
     <Page title="Home">
       <Content>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik initialValues={storage || initialValues} onSubmit={handleSubmit}>
           {({ isSubmitting }) => {
             return (
               <Form>
@@ -143,9 +153,14 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                   <Stack spacing="lg">
                     <Heading>Step 3: Get Your URL</Heading>
                     <Box>
-                      <Button block variant="primary" type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? 'Saving...' : 'Save'}
-                      </Button>
+                      <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(calc(1200px / 4 - 24px), 1fr))" gridGap="md">
+                        <Button block variant="primary" type="submit" disabled={isSubmitting}>
+                          {isSubmitting ? 'Saving...' : 'Save'}
+                        </Button>
+                        <Button block variant="destructive" type="button" disabled={isSubmitting} onClick={handleReset}>
+                          Reset to Defaults
+                        </Button>
+                      </Box>
                       {finalUrl && (
                         <Box display="flex" flexDirection="row" mt="md">
                           <TextInput fullWidth disabled value={finalUrl} mr="md" />
