@@ -27,7 +27,28 @@ interface IndexPageProps {
   serverUrl?: string
 }
 
-const CodeMirrorField = dynamic(() => import('components/customizer/CodeMirrorField'), { ssr: false })
+const CodeMirrorField = dynamic(() => import('components/customizer/CodeMirrorField'), {
+  ssr: false,
+  loading: ({ isLoading, pastDelay, error }) => {
+    if (isLoading) {
+      return <Text variant={200}>Loading code editor...</Text>
+    }
+
+    if (pastDelay) {
+      return <Text variant={200}>Loading code editor seems to take a while, please bear with us...</Text>
+    }
+
+    if (error) {
+      return (
+        <Text color="error02" variant={200}>
+          Failed to load editor: {error.message}
+        </Text>
+      )
+    }
+
+    return null
+  }
+})
 
 const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
   const router = useRouter()
