@@ -87,6 +87,11 @@ html {
   flex: 1 1 auto;
   justify-content: center;
 }
+.ck-alert-image img {
+  height: 100%;
+  max-height: 400px;
+  margin: 0 auto;
+}
 .ck-alert-image__inner {
   position: relative;
   width: 100%;
@@ -121,7 +126,7 @@ html {
 export const defaultHtml = `<div class="ck-alert-wrapper">
   <div class="ck-alert-wrapper__inner">
     <!-- alert image -->
-    <div class="ck-alert-image"></div>
+    <div class="ck-alert-image">{img}</div>
 
     <div class="ck-alert ck-alert--donation">
       <div class="ck-alert__header">
@@ -132,10 +137,10 @@ export const defaultHtml = `<div class="ck-alert-wrapper">
       <div class="ck-alert-text">
         <!-- alert text -->
         <div id="alert-text" class="ck-alert-text__inner">
-          <!-- stuff in {brackets} will be replaced with your message -->
-          <!-- for example: {name} donated {amount}! -->
-          <!-- NOTE: you might have to wrap these inside a tag (e.g. <span>) -->
-          <div id="alert-message"><span>{donatee}</span> donated <span>{amount}</span>!</div>
+          <!-- alert message -->
+          <!-- alertTemplate will be replaced with your message template -->
+          <!-- for example: {donatee} donated {amount}! -->
+          <div id="alert-message">{alertTemplate}</div>
           <div id="alert-user-message">{message}</div>
         </div>
       </div>

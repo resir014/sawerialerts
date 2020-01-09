@@ -2,19 +2,10 @@ import * as React from 'react'
 import convert from 'htmr'
 import { Transition } from 'react-transition-group'
 
-import { OverlayConfig, ServerMessage } from 'utils/types'
-
-// JSX expression
-const TEMPLATE_REGEX = /{(\w+)}/
+import { OverlayConfig, WidgetMessageBody } from 'utils/types'
 
 interface SaweriaWidgetBoxProps {
-  config?: OverlayConfig
-}
-
-const initMessage: ServerMessage = {
-  donatee: '{donatee}',
-  amount: '{amount}',
-  message: '{message}'
+  config: OverlayConfig
 }
 
 const duration = 500
@@ -40,16 +31,27 @@ const transitionStyles: { [key: string]: React.CSSProperties } = {
 const SaweriaWidgetBox: React.FC<SaweriaWidgetBoxProps> = ({ config }) => {
   const [isShown, setIsShown] = React.useState(false)
   const [listening, setListening] = React.useState(false)
-  const [messages, setMessages] = React.useState<{ [key: string]: any }>(initMessage)
+  const [messages, setMessages] = React.useState<{ [key: string]: any } | undefined>(undefined)
   const saweriaAlertURL = config ? `https://api.saweria.co/stream?channel=donation.${config.streamKey}` : undefined
   let timeout: NodeJS.Timeout | undefined
 
   const eventSource = saweriaAlertURL ? new EventSource(saweriaAlertURL) : undefined
 
+  const formatCurrency = (raw: number) => {
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(raw)
+  }
+
   const handleMessage = (e: MessageEvent) => {
     const { data } = JSON.parse(e.data)
 
-    setMessages(data)
+    const messageBody: WidgetMessageBody = {
+      alertTemplate: config.alertTemplate
+        .replace('{donatee}', `<span>${data.donatee}</span>`)
+        .replace('{amount}', `<span>${formatCurrency(data.amount)}</span>`),
+      message: data.message
+    }
+
+    setMessages(messageBody)
 
     setIsShown(true)
 
@@ -62,25 +64,13 @@ const SaweriaWidgetBox: React.FC<SaweriaWidgetBoxProps> = ({ config }) => {
   }
 
   const rendered: React.ReactNode = React.useMemo(() => {
-    if (config) {
-      return convert(config.html, {
-        transform: {
-          _: (node, props, children) => {
-            if (typeof props === 'undefined' && typeof node === 'string') {
-              // text node
-              if (TEMPLATE_REGEX.test(node)) {
-                const key = node.replace(TEMPLATE_REGEX, '$1')
-                return messages[key]
-              }
+    if (messages) {
+      const replacedHtml = config.html
+        .replace('{img}', config.image ? `<img id="image" class="alert-image" src="${config.image}" alt="Alert" />` : '')
+        .replace('{alertTemplate}', messages.alertTemplate)
+        .replace('{message}', messages.message)
 
-              return node
-            }
-
-            // fallback
-            return React.createElement(node, props, children)
-          }
-        }
-      })
+      return convert(replacedHtml)
     }
 
     return null

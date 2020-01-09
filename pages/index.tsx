@@ -8,15 +8,13 @@ import { Content, Page } from 'components/layout'
 import { Heading, Paragraph, Button, Box, Stack, Text, UnorderedList, ListItem, TextInput } from 'components/ui-core'
 import { TextField, CodeMirrorField } from 'components/customizer'
 import { defaultHtml, defaultStyles } from 'utils/defaults'
+import { OverlayConfig } from 'utils/types'
 
-interface FormValues {
-  streamKey: string
-  html: string
-  css: string
-}
+type FormValues = OverlayConfig
 
 const initialValues: FormValues = {
   streamKey: '',
+  alertTemplate: '{donatee} donated {amount}!',
   html: defaultHtml,
   css: defaultStyles
 }
@@ -84,7 +82,51 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                 </Box>
                 <Box mt="xxl" borderTopWidth="1px" borderTopStyle="solid" borderTopColor="accents03" pt="xl">
                   <Stack spacing="lg">
-                    <Heading>Step 2: Design However You Like!</Heading>
+                    <Stack spacing="md">
+                      <Heading>Step 2: Design However You Like!</Heading>
+                      <Paragraph>
+                        Use the HTML and CSS editor below to modify your alert&apos;s styling. We included a sample layout for you to get
+                        started. Use variables with the format of <Text as="code">{`{variableName}`}</Text> to include alert data in the
+                        content.
+                      </Paragraph>
+                      <Paragraph>Available variables you can use inside your custom HTML code are as follows:</Paragraph>
+                      <UnorderedList>
+                        <ListItem>
+                          <Text as="code">{`{img}`}</Text> - Where the custom alert image below will be injected.
+                        </ListItem>
+                        <ListItem>
+                          <Text as="code">{`{alertTemplate}`}</Text> - Where the alert template below will be injected.
+                        </ListItem>
+                        <ListItem>
+                          <Text as="code">{`{message}`}</Text> - The donation message.
+                        </ListItem>
+                      </UnorderedList>
+                    </Stack>
+                    <TextField
+                      fullWidth
+                      autoComplete="off"
+                      name="alertTemplate"
+                      label="Alert Template"
+                      placeholder={`e.g. "{donatee} donated {amount}!`}
+                    />
+                    <TextField
+                      fullWidth
+                      autoComplete="off"
+                      name="image"
+                      label="Image Source"
+                      placeholder="e.g. https://i.imgur.com/[...]"
+                    />
+                    <Stack spacing="md">
+                      <Paragraph>You can use these variables in your alert template.</Paragraph>
+                      <UnorderedList>
+                        <ListItem>
+                          <Text as="code">{`{donatee}`}</Text> - name of the donator.
+                        </ListItem>
+                        <ListItem>
+                          <Text as="code">{`{amount}`}</Text> - donation amount.
+                        </ListItem>
+                      </UnorderedList>
+                    </Stack>
                     <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(calc(1200px / 4 - 24px), 1fr))" gridGap="md">
                       <Stack spacing="md">
                         <Box>
@@ -113,31 +155,6 @@ const IndexPage: NextPage<IndexPageProps> = ({ serverUrl }) => {
                         </Box>
                       )}
                     </Box>
-                  </Stack>
-                </Box>
-                <Box mt="xxl" borderTopWidth="1px" borderTopStyle="solid" borderTopColor="accents03" pt="xl">
-                  <Heading mb="lg">Help</Heading>
-                  <Stack spacing="md">
-                    <Heading as="h4" variant={600}>
-                      HTML/CSS Editor
-                    </Heading>
-                    <Paragraph>
-                      Use the HTML and CSS editor below to modify your alert&apos;s styling. We included a sample layout for you to get
-                      started. Use variables with the format of <Text as="code">{`{variableName}`}</Text> to include alert data in the
-                      content.
-                    </Paragraph>
-                    <Paragraph>Available variables you can use are as follows:</Paragraph>
-                    <UnorderedList>
-                      <ListItem>
-                        <Text as="code">{`{donatee}`}</Text> - name of the donator.
-                      </ListItem>
-                      <ListItem>
-                        <Text as="code">{`{amount}`}</Text> - donation amount.
-                      </ListItem>
-                      <ListItem>
-                        <Text as="code">{`{message}`}</Text> - donation message.
-                      </ListItem>
-                    </UnorderedList>
                   </Stack>
                 </Box>
               </Form>
